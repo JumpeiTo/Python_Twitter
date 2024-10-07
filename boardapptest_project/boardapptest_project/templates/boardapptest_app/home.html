@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+ {% if user.is_authenticated %}
+  <p>{{ user.username }}でログイン中</p>
+ {% endif %}
+ Pythonで簡易Twitter作ったった<br>
+{% endblock %}

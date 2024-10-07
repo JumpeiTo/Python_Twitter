@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager,AbstractBaseUser, PermissionsMixin
+# AbstractBaseUser：デフォルトのユーザーモデルをカスタマイズするために使うモデル
+# PermissionsMixin：パーミッションの機能を利用したい場合は、これを継承しておく必要がある。
 
 
 class MyUserManager(BaseUserManager):
@@ -64,9 +66,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = MyUserManager()
 
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'email' # ユーザーモデルの中でユーザーを一意に識別できる項目
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username'] # 管理者がターミナル上でユーザーを作成する際に入力が求められる項目
+# USERNAME_FIELDに指定した項目やパスワードはここに追加しなくても必ず入力を求められる
 
 
     def __str__(self):
@@ -89,5 +92,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
+# モデルのクラス内に配置できる特別なクラスで、モデルの設定を変えられる
     class Meta:
         db_table = 'users'
